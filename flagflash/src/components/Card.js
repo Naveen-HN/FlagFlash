@@ -21,7 +21,7 @@ class Card extends Component {
         >
           <img
             src={this.props.image}
-            style={{ height: "13.5rem", width: "20rem" }}
+            style={{ height: "13.6rem", width: "20rem" }}
             alt={this.props.name}
           />
         </div>
