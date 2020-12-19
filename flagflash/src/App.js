@@ -1,4 +1,5 @@
 import Header from "./components/Header";
+import Flags from "./components/Flags";
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
         href="https://bootswatch.com/4/cerulean/bootstrap.min.css"
       />
       <Header />
+      <Flags />
     </div>
   );
 }
