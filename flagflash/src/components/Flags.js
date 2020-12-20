@@ -7,6 +7,7 @@ class Flags extends Component {
   state = {
     Flag: [],
     Search: "",
+    Error: "",
   };
 
   componentDidMount() {
@@ -26,6 +27,52 @@ class Flags extends Component {
     }
   }
 
+  shuffle = (array, search) => {
+    var temporaryValue, randomIndex;
+    let searchResult;
+    if (search !== undefined && search !== "") {
+      searchResult = array.filter((item) => {
+        if (item.country.name.toLowerCase().startsWith(search.toLowerCase()))
+          return item;
+        return false;
+      });
+    } else {
+      searchResult = [...array];
+    }
+    var currentIndex = searchResult.length;
+
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = searchResult[currentIndex];
+      searchResult[currentIndex] = searchResult[randomIndex];
+      searchResult[randomIndex] = temporaryValue;
+    }
+    if (searchResult.length === 0)
+      return (
+        <div class="alert alert-dismissible alert-danger">
+          <strong>
+            No country found with that name! Please check the spelling.
+          </strong>
+        </div>
+      );
+
+    return searchResult.map((flag, index) => (
+      <Card
+        key={index}
+        image={flag.svgFile}
+        name={flag.country.name}
+        capital={flag.country.capital}
+        population={flag.country.population}
+        officialLanguage={flag.country.officialLanguages}
+        currency={flag.country.currencies}
+      />
+    ));
+  };
+
   render() {
     return (
       <div
@@ -39,53 +86,14 @@ class Flags extends Component {
       >
         {" "}
         {this.state.Flag.length > 0
-          ? shuffle(this.state.Flag, this.state.Search).map((flag) => (
-              <Card
-                image={flag.svgFile}
-                name={flag.country.name}
-                capital={flag.country.capital}
-                population={flag.country.population}
-                officialLanguage={flag.country.officialLanguages}
-                currency={flag.country.currencies}
-              />
-            ))
-          : null}{" "}
+          ? this.shuffle(this.state.Flag, this.state.Search)
+          : null}
       </div>
     );
   }
 }
 
-function shuffle(array, search) {
-  var temporaryValue, randomIndex;
-  console.log(array);
-  let searchResult;
-  if (search !== undefined && search !== "") {
-    searchResult = array.filter((item) => {
-      if (item.country.name.toLowerCase().startsWith(search.toLowerCase()))
-        return item;
-    });
-  } else {
-    searchResult = [...array];
-  }
-  var currentIndex = searchResult.length;
-  console.log(searchResult);
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = searchResult[currentIndex];
-    searchResult[currentIndex] = searchResult[randomIndex];
-    searchResult[randomIndex] = temporaryValue;
-  }
-
-  return searchResult;
-}
-
 const mapStateToProps = (state) => {
-  console.log("map function", state);
   return {
     data: state.Flags.flags,
     search: state.Flags.search,
