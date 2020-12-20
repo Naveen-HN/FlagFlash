@@ -15,12 +15,18 @@ export function* fetchFlags(action) {
         const body = {
             query: `query{
   Flag{
-    emoji,
-    emojiUnicode,
     svgFile,
     country{
       name,
-      capital
+      capital,
+      population,
+      officialLanguages{
+        name
+      }
+      currencies{
+        name,
+        symbol
+      }
     }
   }
 }`,

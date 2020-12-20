@@ -11,12 +11,24 @@ class Card extends Component {
     this.setState((prevState) => ({ isFlipped: !prevState.isFlipped }));
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.isFlipped) {
+      this.flipTimeout = setTimeout(() => {
+        this.setState(() => ({ isFlipped: false }));
+      }, 5000);
+    }
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.flipTimeout);
+  }
+
   render() {
     return (
       <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="vertical">
         <div
           className="card bg-secondary mb-3"
-          style={{ maxWidth: "20rem" }}
+          style={{ width: "20rem", height: "13.6rem" }}
           onClick={this.handleClick}
         >
           <img
@@ -28,17 +40,27 @@ class Card extends Component {
 
         <div
           className="card bg-secondary mb-3"
-          style={{ maxWidth: "20rem" }}
+          style={{ width: "20rem", maxHeight: "13.6 rem" }}
           onClick={this.handleClick}
         >
           <div className="card-header">
-            <h3>{this.props.name}</h3>
+            <h5>{this.props.name}</h5>
           </div>
           <div className="card-body">
-            <h4 className="card-title">Capital: {this.props.capital}</h4>
+            <h6 className="card-title">Capital: {this.props.capital}</h6>
             <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
+              Population: {this.props.population}
+              Official Languages:{" "}
+              {this.props.officialLanguage.map((lang) => (
+                <span class="badge badge-primary">{lang.name}</span>
+              ))}
+              Currency:
+              <span class="badge badge-pill badge-success">
+                {this.props.currency.map((sym) => sym.symbol)}
+              </span>
+              {this.props.currency.map((curr) => (
+                <span class="badge badge-pill badge-info">{curr.name}</span>
+              ))}
             </p>
           </div>
         </div>
