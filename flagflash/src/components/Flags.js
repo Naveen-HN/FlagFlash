@@ -6,6 +6,7 @@ import { fetchFlags } from "../Redux/Action";
 class Flags extends Component {
   state = {
     Flag: [],
+    Search: "",
   };
 
   componentDidMount() {
@@ -16,6 +17,11 @@ class Flags extends Component {
     if (props.data !== state.Flag) {
       return {
         Flag: props.data,
+      };
+    }
+    if (props.search !== state.Search) {
+      return {
+        Search: props.search,
       };
     }
   }
@@ -33,7 +39,7 @@ class Flags extends Component {
       >
         {" "}
         {this.state.Flag.length > 0
-          ? shuffle(this.state.Flag).map((flag) => (
+          ? shuffle(this.state.Flag, this.state.Search).map((flag) => (
               <Card
                 image={flag.svgFile}
                 name={flag.country.name}
@@ -49,11 +55,20 @@ class Flags extends Component {
   }
 }
 
-function shuffle(array) {
-  var currentIndex = array.length,
-    temporaryValue,
-    randomIndex;
-
+function shuffle(array, search) {
+  var temporaryValue, randomIndex;
+  console.log(array);
+  let searchResult;
+  if (search !== undefined && search !== "") {
+    searchResult = array.filter((item) => {
+      if (item.country.name.toLowerCase().startsWith(search.toLowerCase()))
+        return item;
+    });
+  } else {
+    searchResult = [...array];
+  }
+  var currentIndex = searchResult.length;
+  console.log(searchResult);
   // While there remain elements to shuffle...
   while (0 !== currentIndex) {
     // Pick a remaining element...
@@ -61,18 +76,19 @@ function shuffle(array) {
     currentIndex -= 1;
 
     // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
+    temporaryValue = searchResult[currentIndex];
+    searchResult[currentIndex] = searchResult[randomIndex];
+    searchResult[randomIndex] = temporaryValue;
   }
 
-  return array;
+  return searchResult;
 }
 
 const mapStateToProps = (state) => {
   console.log("map function", state);
   return {
     data: state.Flags.flags,
+    search: state.Flags.search,
   };
 };
 export default connect(mapStateToProps)(Flags);
