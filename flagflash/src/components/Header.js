@@ -28,15 +28,9 @@ function Header(props) {
                 <input
                   className="form-control mr-sm-2"
                   type="search"
-                  placeholder="Search"
+                  placeholder="Search country &#128269;"
                   onChange={handleSearch}
                 />{" "}
-                <button
-                  className="btn btn-secondary my-2 my-sm-0"
-                  type="submit"
-                >
-                  Search{" "}
-                </button>{" "}
               </form>{" "}
             </li>{" "}
           </ul>{" "}
