@@ -2,6 +2,7 @@ import * as Types from "../Action/Types";
 
 const initialState = {
     flags: [],
+    search: ''
 };
 
 const handleFlagList = (state, action) => {
@@ -31,6 +32,11 @@ const flagReducer = (state = initialState, action = {}) => {
             return handleFlagList(state, action);
         case Types.FETCH_FLAGS_ERROR:
             return state;
+        case Types.SEARCH_FLAG:
+            return {
+                ...state,
+                search: action.search
+            }
         default:
             return state;
     }

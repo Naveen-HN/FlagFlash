@@ -40,7 +40,7 @@ class Card extends Component {
 
         <div
           className="card bg-secondary mb-3"
-          style={{ width: "20rem", maxHeight: "13.6 rem" }}
+          style={{ width: "20rem", minHeight: "13.6 rem" }}
           onClick={this.handleClick}
         >
           <div className="card-header">
