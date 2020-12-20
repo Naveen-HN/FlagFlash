@@ -7,8 +7,8 @@ import * as Types from "../Action/Types";
 import {
     GetDataFromServer
 } from "../Service";
-// "http://localhost:5000/api"
-const loginUrl = "https://countries-274616.ew.r.appspot.com/";
+
+const url = "https://countries-274616.ew.r.appspot.com/";
 
 export function* fetchFlags(action) {
     try {
@@ -32,8 +32,7 @@ export function* fetchFlags(action) {
 }`,
         };
 
-        const response = yield call(GetDataFromServer, loginUrl, "POST", body);
-        console.log("response", response);
+        const response = yield call(GetDataFromServer, url, "POST", body);
         const result = yield response.json();
         if (result.error) {
             yield put({
@@ -53,5 +52,4 @@ export function* fetchFlags(action) {
 
 export default function* rootSaga(params) {
     yield takeEvery(Types.FETCH_FLAGS, fetchFlags);
-    console.log("ROOT SAGA");
 }
