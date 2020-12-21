@@ -1,6 +1,8 @@
 # Getting Started with FlagFlash
 
-This is deployed on Netlify: https://blissful-pasteur-73f506.netlify.app/
+FlagFlash is deployed on: https://blissful-pasteur-73f506.netlify.app/
+
+Built using Countries V2 api from https://github.com/APIs-guru/graphql-apis
 
 ## To run the app on development mode on your local system
 
