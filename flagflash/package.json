@@ -2,7 +2,7 @@
     "name": "flagflash",
     "version": "0.1.0",
     "private": true,
-    "homepage": "http://Naveen-HN.github.io/FlagFlash",
+    "homepage": "http://Naveen-HN.github.io/FlagFlash/flagflash",
     "dependencies": {
         "@testing-library/jest-dom": "^5.11.6",
         "@testing-library/react": "^11.2.2",
