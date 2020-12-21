@@ -6,7 +6,7 @@ This is deployed on Netlify: https://blissful-pasteur-73f506.netlify.app/
 
 Download the project into your local system.
 Unzip the folder.
-Open terminal and type cd 'your local folder where the project is downloaded'
+Open terminal and type cd 'your local folder path where the project is downloaded'
 
 Install all the dependencies using 
 
